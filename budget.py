@@ -1,45 +1,64 @@
 class Category:
-    ledger = list('')
-    total = 0.0
-
+    
     def __init__(self, name):
         self.name = name
+        self.ledger = []
+        self.total = 0
 
     def deposit(self, amount, description=''):
-        self.amount = float(amount)
+        self.amount = amount
         self.description = description
-        self.ledger.append(f"amount: {self.amount} description: {description}")
-        self.total += float(amount)
+        self.ledger.append({"amount": amount, "description": description})
+        self.total += amount
 
     def withdraw(self, amount, description=''):
-        self.amount = float(amount)
+        self.amount = amount
         self.description = description
-        #self.max_withdraw = self.total
-        if self.amount > self.total:
+        if self.total < amount:
             return False
         else:
-            self.ledger.append(f"amount: -{self.amount} description: {description}")
-            self.total -= float(amount)
+            self.ledger.append({"amount": -amount, "description": description})
+            self.total -= amount
             return True
 
-    def get_balance(self, name):
+    def get_balance(self):
         return self.total
 
-    def transfer(self, amount, name):
-        pass
+    def transfer(self, amount, category):
 
-    #def get_ledger(self, name)
+        if (self.check_funds(amount)):
+            self.withdraw(amount, ('Transfer to ' + category.name))
+            category.deposit(amount, ('Transfer from ' + self.name))
+
+
+    def check_funds(self, amount):
+        self.amount = amount
+        if self.amount <= self.get_balance():
+            return True
+        else:
+            return False
 
     def budget(self, name):
         print(f"{name:*^30}")
         for item in self.ledger:
-            item = item.replace('amount: ','').replace('description: ',',').split(',')
+            print(f"{item['description'][0:23]:<23}{item['amount']:>7.2f}")
+        print(f"Total: {self.total:.2f}")
 
-            print(f"{item[1]:<23}{item[0]:>7}")
-        print(f"Total: {self.total}")
-
+games = Category('Games')
 food = Category('Food')
-food.deposit(500, "groceries")
+food.deposit(500, "initial deposit")
 food.withdraw(10.50, "taco bell")
-food.budget('Food')
+food.withdraw(40.15, "red beans and rice bigbowl")
+games.deposit(200, "fun deposit")
+games.withdraw(49.99, "pokemon")
+food.transfer(50, games)
+
+
+
+#food.transfer(49.35, 'Games')
+#print(food.budget('Food'))
+games.budget('Games')
+#games.budget('Games')
+#print(food.get_balance())
+#print(games.check_funds(200))
 
