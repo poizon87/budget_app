@@ -45,16 +45,34 @@ class Category:
         print(f"Total: {self.total:.2f}")
 
 categories = ['Food','Games','Auto']
-items = str(categories).split()
-#items = str(items).replace(',','').replace('[','').replace(']','').replace('"','').replace("'",'')
+
 title = "Percentage spent by category"
-x = 0
+longest = -1
+new_cat = []
+x = " "
+dash = '---'
 print(title)
 for nums in reversed(range(0,110,10)):
     print(f"{str(nums) + '|':>4}")
-for item in items:
-    print(item)
-#print(items)
+print(f"    {dash * len(categories)}")
+
+for item in categories:
+    if len(item) > longest:
+        longest = len(item)
+        long_word = item
+for item in categories:
+    if len(item) <= len(long_word):
+        item = f"{(item + (x * (len(long_word) - len(item) + 1)))}"
+    new_cat.append(item)
+
+for word in zip(*new_cat):
+    words = ('  '.join(word))
+    print(f"     {words:>6}")
+
+
+
+
+
 
 
 
