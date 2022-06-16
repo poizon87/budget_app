@@ -44,6 +44,36 @@ class Category:
             print(f"{item['description'][0:23]:<23}{item['amount']:>7.2f}")
         print(f"Total: {self.total:.2f}")
 
+categories = ['Food','Games','Auto']
+items = str(categories).split()
+#items = str(items).replace(',','').replace('[','').replace(']','').replace('"','').replace("'",'')
+title = "Percentage spent by category"
+x = 0
+print(title)
+for nums in reversed(range(0,110,10)):
+    print(f"{str(nums) + '|':>4}")
+for item in items:
+    print(item)
+#print(items)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+auto = Category('Auto')
 games = Category('Games')
 food = Category('Food')
 food.deposit(500, "initial deposit")
@@ -51,13 +81,17 @@ food.withdraw(10.50, "taco bell")
 food.withdraw(40.15, "red beans and rice bigbowl")
 games.deposit(200, "fun deposit")
 games.withdraw(49.99, "pokemon")
+auto.deposit(500, "car fund")
+auto.withdraw(100, "gas")
 food.transfer(50, games)
 
 
 
 #food.transfer(49.35, 'Games')
 #print(food.budget('Food'))
-games.budget('Games')
+
+#games.budget('Games')
+
 #games.budget('Games')
 #print(food.get_balance())
 #print(games.check_funds(200))
