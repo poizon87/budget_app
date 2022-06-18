@@ -1,6 +1,12 @@
 
 percentages = []
-
+pcent = []
+os = ' o '
+longest = -1
+new_cat = []
+x = " "
+dash = '---'
+graph = "Percentage spent by category"
 
 class Category:
     total_spent = 0
@@ -56,6 +62,9 @@ class Category:
 
     def percentage_spent(self):
         percentages.append(int((self.spent / Category.total_spent) * 100))
+        for percentage in percentages:
+            percentage = round(percentage / 10) * 10
+        pcent.append(percentage)
 
 
 auto = Category('Auto')
@@ -75,16 +84,17 @@ food.percentage_spent()
 
 
 
-longest = -1
-new_cat = []
-x = " "
-dash = '---'
 
-graph = "Percentage spent by category\n"
+
 print(graph)
 
 for nums in reversed(range(0,110,10)):
     side_bar = f"{str(nums) + '|':>4}"
+    for percent in pcent:
+        if nums <= percent:
+            side_bar += os
+        else:
+            side_bar += '   '
     print(side_bar)
 
 dashes = f"    {dash * len(Category.categories)}"
@@ -103,7 +113,8 @@ for word in zip(*new_cat):
     cats = f"     {words:>6}"
     print(cats)
 
-print(percentages)
+#print(pcent)
+#print(Category.categories)
 #print(os)
 #food.transfer(49.35, 'Games')
 #print(food.budget('Food'))
@@ -113,4 +124,4 @@ print(percentages)
 #games.budget('Games')
 #print(food.get_balance())
 #print(games.check_funds(200))
-#print(food.percentage_spent())
+#print((games.spent / Category.total_spent) * 100)
